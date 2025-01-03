@@ -80,7 +80,7 @@ class LLMProcessor:
         try:
             # Prepare input text
             input_text = f"""
-            Generate a compelling SEO description (150 words max) that includes relevant keywords:
+            Generate a compelling SEO description (200 words max) that includes relevant keywords:
             Title: {content['title']}
             Topic: {content['meta_description']}
             Make sure the description summarizes the key themes and highlights of the content while enticing readers to engage further. The tone should be clear and engaging, encouraging clicks.
