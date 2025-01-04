@@ -274,51 +274,39 @@ def main():
     
     sitemap_url = 'https://sinceweb.games/sitemap.xml'
 
-    while True:
-        try:
-            # Fetch URLs from sitemap
-            logger.info(f"Fetching URLs from sitemap: {sitemap_url}")
-            urls = content_fetcher.fetch_sitemap(sitemap_url)
+    try:
+    # Fetch URLs from sitemap
+        logger.info(f"Fetching URLs from sitemap: {sitemap_url}")
+        urls = content_fetcher.fetch_sitemap(sitemap_url)
 
-            if not urls:
-                logger.error("No URLs found in sitemap")
-                time.sleep(5400)
-                continue
-
-            # Filter out already posted URLs
+        if not urls:
+            logger.error("No URLs found in sitemap")
+        else:
+        # Filter out already posted URLs
             available_urls = [url for url in urls if url not in social_media.posted_urls]
 
             if not available_urls:
-                logger.info("All URLs have been posted. Resetting tracking...")
-                social_media.posted_urls.clear()
-                available_urls = urls
-
+                logger.info("All URLs have been posted.")
+            else:
             # Select random URL to post
-            url_to_post = random.choice(available_urls)
+                url_to_post = random.choice(available_urls)
             
             # Fetch content
-            content = content_fetcher.fetch_page_content(url_to_post)
-            if not content:
-                continue
+                content = content_fetcher.fetch_page_content(url_to_post)
+                if content:
+                # Generate SEO description and keywords using LLM
+                    description, keywords = llm_processor.generate_seo_description(content)
 
-            # Generate SEO description and keywords using LLM
-            description, keywords = llm_processor.generate_seo_description(content)
+                # Post to social media platforms
+                    success = social_media.post_content(url_to_post, description, keywords, content)
+                
+                    if success:
+                        logger.info(f"Posted URL: {url_to_post}")
+                        logger.info(f"Description: {description}")
+                        logger.info(f"Keywords: {keywords}")
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
 
-            # Post to social media platforms
-            success = social_media.post_content(url_to_post, description, keywords, content)
-            
-            if success:
-                logger.info(f"Posted URL: {url_to_post}")
-                logger.info(f"Description: {description}")
-                logger.info(f"Keywords: {keywords}")
-
-            # Wait before next post (90 minutes)
-            logger.info("Waiting 1 hr 30 minutes before next post...")
-            time.sleep(5400)
-
-        except Exception as e:
-            logger.error(f"Unexpected error in main loop: {e}")
-            time.sleep(5400)
 
 if __name__ == "__main__":
     main()
