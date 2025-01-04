@@ -22,4 +22,4 @@ jobs:
           python -m nltk.downloader punkt stopwords
       
       - name: Run script
-        run: python fbtumblr.py
+        run: python app.py
