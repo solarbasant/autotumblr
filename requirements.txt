@@ -5,3 +5,4 @@ transformers
 pytumblr
 rake-nltk
 torch
+PyTumblr
