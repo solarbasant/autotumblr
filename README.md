@@ -1,5 +1,5 @@
 # Facebook and Tumblr Content Automation
-
+From Sitemap URL to Tumblr Blog & Facebook Page.
 ## Project Description
 
 This is an open-source project that automates the process of fetching content from a website, generating SEO-friendly descriptions, and posting the content to social media platforms like Facebook and Tumblr. The project is designed to help website owners and content creators streamline their content distribution and promotion efforts, ultimately driving more traffic and engagement to their online properties.
