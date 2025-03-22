@@ -96,7 +96,7 @@ TUMBLR_BLOG_NAME = 'YOUR_TUMBLR_BLOG_NAME'
 1. Clone the repository:
 
 ```
-git clone https://github.com/sinceweb/autotumblr.git
+git clone https://github.com/solarbasant/autotumblr.git
 ```
 
 2. Install the required dependencies:
